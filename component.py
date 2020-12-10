@@ -1,4 +1,4 @@
-from html import Div
+from div import Div
 
 
 class Component:
