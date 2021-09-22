@@ -1,12 +1,20 @@
-from div import Div
+from components.div import Div
+import pathlib
 
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask, render_template, request
+app = Flask(__name__, template_folder='static')
 
 
 @app.route("/")
 def hello():
-    return Div(children=['hello', Div(children=['world'])])
+    a = str(pathlib.Path(__file__).parent.absolute()) + '/static/'
+    f = open("{a}index.html".format(a=a), "w+")
+    f.write("<script>")
+    f.write(Div(className="container", children=[
+            'hello', Div(children=['world'])]))
+    f.write("</script>")
+    f.close()
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
