@@ -1,9 +1,9 @@
 class Div:
-    def parseKey(key: str) -> str:
-        print('key ' + key)
+    def parseKey(self, key: str) -> str:
+        # print('key ' + key)
         if key == 'backgroundColor':
             return 'background-color'
-        return ''
+        return key
 
     def mountStyle(self, style: dict) -> str:
         string = ''
@@ -11,15 +11,9 @@ class Div:
             string += self.parseKey(key) + ':' + style[key] + ';'
         return string
 
-    def __new__(self, className="", children={}, style={'backgroundColor': 'red'}):
-        self.className = className
-        self.children = children
-        self.style = self.mountStyle(self, style)
-        self.onClick = ''
-        self.html = ''
-
+    def __repr__(self) -> str:
         for child in self.children:
-            self.html = self.html + child
+            self.html = self.html + str(child)
 
         string = '<div'
 
@@ -30,10 +24,37 @@ class Div:
             string += ' style="' + self.style + '"'
 
         if self.onClick != '':
-            string += ' onclick="' + self.onClick + '"'
+            string += ' onclick="() => ' + str(self.onClick) + '"'
 
-        string += '>' + self.html + '</div>'
+        string += '>' + self.html + '</div>' + self.script
         return string
+
+    def __init__(self, className="", children={}, style={}, onClick="", script=''):
+        self.className = className
+        self.children = children
+        self.style = self.mountStyle(style)
+        self.onClick = onClick
+        self.script = script
+        self.html = ''
+
+        # print(self.onClick, 'here')
+
+        # for child in self.children:
+        #     self.html = self.html + child
+
+        # string = '<div'
+
+        # if self.className != '':
+        #     string += ' class="' + self.className + '"'
+
+        # if self.style != '':
+        #     string += ' style="' + self.style + '"'
+
+        # if self.onClick != '':
+        #     string += ' onclick="' + self.onClick + '"'
+
+        # string += '>' + self.html + '</div>'
+        # return string
         # return '<div class={className} style={style} >{children}</div>'.format(children=self.html,
         #                                                                        className=self.className,
         #                                                                        style=self.style)
