@@ -25,10 +25,9 @@ def counter():
 @app.route('/background_process_test')
 def background_process_test():
     params = request.args.to_dict()
-    store = Store()
-    store.counter = int(params['updatedValue'])
-    print ("Hello", params)
-    return ("nothing")
+    state = Store().getState(params['updateFunction'])
+    state.value = state.modifier(state.value)
+    return (str(state.value))
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
