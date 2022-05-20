@@ -1,4 +1,7 @@
 from components.base_component import BaseComponent
+from core.router import RouterNavigate
+from core.state import State
+
 
 class Button(BaseComponent):
     def __repr__(self) -> str:
@@ -14,7 +17,13 @@ class Button(BaseComponent):
             string += ' style="' + self.style + '"'
 
         if self.onClick != '':
-            string += ' onclick="changeData(' + str(self.onClick.__hash__()) + ')"'
+            if type(self.onClick) is State:
+                string += ' onclick="changeData(' + \
+                    str(self.onClick.__hash__()) + ')"'
+            elif type(self.onClick) is RouterNavigate:
+                string += ' onclick="' + self.onClick.value() + '"'
+            else:
+                string += ' onclick="' + self.onClick + '"'
 
         string += '>' + self.html + '</button>' + self.script
         return string

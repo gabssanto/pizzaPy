@@ -3,8 +3,7 @@ class BaseComponent:
     Base class for all components.
     """
 
-    def parseKey(key: str) -> str:
-        print('key ' + key)
+    def parseKey(self, key: str) -> str:
         if key == 'backgroundColor':
             return 'background-color'
         return ''
