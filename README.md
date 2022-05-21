@@ -1,5 +1,11 @@
 # pizzaPy: A WIP Framework to develop frontend using purely python
-- []: # Language: python
-- []: # Add globalStorage (redux like with observers to update the window)
-- []: when clicking on the a tag, it should dispatch a function to the global storage to update the window
-- [] add observer
+
+# Currently supported components
+* Div 
+* Button
+
+# Currently supported for dev
+* Store 
+* Virtual DOM
+* Auto re render page after state update
+* Routing system
