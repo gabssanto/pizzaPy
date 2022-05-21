@@ -1,15 +1,14 @@
-from html.entities import html5
 from flask import url_for
-import pathlib
 
-class Window: 
+
+class Window:
     _instance = None
 
-    def __new__(cls, component):
-        if cls._instance is None:
-            cls._instance = super(Window, cls).__new__(cls)
-        cls.component = component
-        return cls._instance
+    # def __new__(cls, component):
+    #     if cls._instance is None:
+    #         cls._instance = super(Window, cls).__new__(cls)
+    #     cls.component = component
+    #     return cls._instance
 
     def __init__(self, component):
         self.component = component
@@ -25,7 +24,7 @@ class Window:
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Document</title>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-                <script src="{url_for('static', filename='changeData.js')}"></script>
+                <script src="{url_for('static', filename='bridge.js')}"></script>
             </head>
             <body>
                 {self.component.__repr__()}
