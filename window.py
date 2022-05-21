@@ -10,7 +10,8 @@ class Window:
     #     cls.component = component
     #     return cls._instance
 
-    def __init__(self, component):
+    def __init__(self, component, title='Document'):
+        self.title = title
         self.component = component
 
     def __repr__(self) -> str:
@@ -22,7 +23,7 @@ class Window:
                 <meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
+                <title>{self.title}</title>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                 <script src="{url_for('static', filename='bridge.js')}"></script>
             </head>
@@ -47,7 +48,7 @@ class Window:
 #         $(function() {
 #           $('a#test').on('click', function(e) {
 #             e.preventDefault()
-#             $.getJSON('/background_process_test',
+#             $.getJSON('/handleDOM',
 #                 function(data) {
 #               //do nothing
 #             });

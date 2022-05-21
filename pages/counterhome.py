@@ -1,5 +1,5 @@
-from components.button import Button
-from components.div import Div
+from core.components.button import Button
+from core.components.div import Div
 from core.router import Router
 
 

@@ -1,7 +1,7 @@
 from re import A
 from typing import List
 
-from components.div import Div
+from core.components.div import Div
 
 
 class SingleRoute:

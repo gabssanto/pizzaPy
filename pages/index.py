@@ -1,5 +1,5 @@
 
-from components.div import Div
+from core.components.div import Div
 
 def indexPage():
     return Div(className="container", children=[

@@ -1,8 +1,8 @@
-from components.button import Button
-from components.div import Div
-from components.text import Text
+from core.components.button import Button
+from core.components.div import Div
+from core.components.text import Text
 
-from core.state import State
+from core.hooks.state import State
 
 
 def addCounter(counter):
