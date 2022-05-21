@@ -1,6 +1,6 @@
 # pizzaPy: A WIP Framework to develop frontend using purely python
 
-## Examples
+## [Examples](https://github.com/gabssanto/pizzaPy/tree/main/pages)
 * Routing and Counter Example
 
 https://user-images.githubusercontent.com/16672623/169662953-509410a8-d9e8-4e37-83a2-0c7eb990033b.mov
