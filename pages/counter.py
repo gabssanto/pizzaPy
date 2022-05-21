@@ -1,4 +1,4 @@
-from components.div import Div
+from core.components.div import Div
 from core.router import Router
 
 

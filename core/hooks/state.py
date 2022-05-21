@@ -1,4 +1,4 @@
-from store import Store
+from core.singletons.store import Store
 
 
 class State:

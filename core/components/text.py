@@ -1,4 +1,4 @@
-from components.base_component import BaseComponent
+from core.components.base_component import BaseComponent
 
 class Text(BaseComponent):
     def __repr__(self) -> str:

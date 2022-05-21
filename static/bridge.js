@@ -1,6 +1,6 @@
 function changeData(method, arguments) {
   $.getJSON(
-    "/background_process_test",
+    "/handleDOM",
     { updateFunction: method, arguments },
     function (newValue) {
       $(".updatable > .value_" + method).each(function (idx) {
@@ -14,7 +14,7 @@ function changeData(method, arguments) {
 function routerNavigate(router, targetPath) {
   $.ajax({
     type: "GET",
-    url: "/background_process_test",
+    url: "/handleDOM",
     data: { router, path: targetPath },
     success: function (response) {
       const { path, body } = JSON.parse(response);
@@ -51,7 +51,7 @@ addEventListener("popstate", function (event) {
 
   $.ajax({
     type: "GET",
-    url: "/background_process_test",
+    url: "/handleDOM",
     data: { router: router, path: path },
     success: function (response) {
       const { body } = JSON.parse(response);
