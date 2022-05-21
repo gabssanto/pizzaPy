@@ -2,6 +2,7 @@ import base64
 from io import BytesIO
 from core.components.img import Img
 from core.components.svg import Svg
+from core.components.text import Text
 
 from flask import Flask
 from matplotlib.figure import Figure
@@ -24,10 +25,15 @@ def matplotlibPage():
 
     return Div(
         children=[
-            "Hello world",
-            Img(src="data:image/png;base64,{}".format(data)),
-            Svg(children=[
-                '<circle cx="100" cy="100" r="50" fill="red" />'
-            ])
+            Div(children=[
+                "Matplotlib PNG",
+                Img(src="data:image/png;base64,{}".format(data)),
+            ]),
+            Div(children=[
+                "SVG",
+                Svg(children=[
+                    '<circle cx="100" cy="100" r="50" fill="red" />'
+                ])
+            ]),
         ]
     )

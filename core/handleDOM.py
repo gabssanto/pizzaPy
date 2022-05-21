@@ -24,4 +24,4 @@ def index():
         }
         return (json.dumps(response))
 
-    return warnings.warn("handle DOM does not implement the given parameters")
+    return warnings.warn("PizzaPy Virtual DOM does not implement the given parameters")

@@ -2,7 +2,6 @@ from core.components.base_component import BaseComponent
 
 class Text(BaseComponent):
     def __repr__(self) -> str:
-        return self.mount_children_component('span')
         for child in self.children:
             self.html = self.html + str(child)
 
