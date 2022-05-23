@@ -15,6 +15,8 @@ https://user-images.githubusercontent.com/16672623/169662953-509410a8-d9e8-4e37-
 # Currently supported components
 * Div 
 * Button
+* Svg
+* Img
 
 # Currently supported for dev
 * Store 
