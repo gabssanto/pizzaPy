@@ -31,7 +31,8 @@ class Renderer:
         elementDom.add_prop(key, props[key])
 
     children = props["children"] if "children" in props else []
-    parent.element.appendChild(elementDom.element)
-
+    
     for childElement in children:
       Renderer.render(childElement, elementDom)
+
+    parent.element.appendChild(elementDom.element)
