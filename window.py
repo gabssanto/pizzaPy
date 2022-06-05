@@ -17,6 +17,7 @@ class Window:
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>{self.title}</title>
                 <!-- <link rel="stylesheet" href="{url_for('static', filename='pyscript.css')}" /> -->
+                <link rel="stylesheet" href="{url_for('static', filename='styles.css')}" />
                 <script defer type="text/javascript" src="{url_for('static', filename='pyscript.js')}"></script>
             </head>
             <body>
