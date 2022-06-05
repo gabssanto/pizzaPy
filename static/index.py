@@ -1,40 +1,40 @@
-from components import *
+from components import StatefulComponent, Div, Span, Button, Text
+from renderer import Renderer
+from pyscript import Element
 
-class MainPage:
-  counter = 0
-  classNameVar = "blue"
+class SubComponent(StatefulComponent):
+  def __init__(self, title) -> None:
+    super().__init__({ "title": title })
+    self.state = {
+      "counter": 0
+    }
 
   def add(self, *args):
-    self.counter += 1
-    self.classNameVar = "blue" if self.classNameVar == "red" else "red"
-    Renderer.render(self.render().element, Element("root"))
+    counter = self.state["counter"] + 1
+    self.setState({
+      "counter": counter
+    })
 
   def render(self):
     return Div(
-      id="container",
       children=[
         Span(
-          className=self.classNameVar,
-          children=[
-            Text("ue")
-          ]
+          children=[Text(self.props["title"]), Text(self.state["counter"])]
         ),
-        Div(
-          children=[
-            Span(
-              children=[
-                Text(self.counter)
-              ]
-            ),
-            Button(
-              onClick=self.add,
-              children=[
-                Text("Hit me")
-              ]
-            )
-          ]
+        Button(
+          onClick=self.add,
+          children=[Text("Add")]
         )
       ]
     )
 
-Renderer.render(MainPage().render().element, Element("root"))
+class MainPage(StatefulComponent):
+  def __init__(self) -> None:
+    super().__init__({})
+
+  def render(self):
+    return Div(
+      children=[SubComponent("Component 1: "), SubComponent("Component 2: ")]
+    )
+
+Renderer.render(MainPage().element, Element("root"))

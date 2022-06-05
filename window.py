@@ -23,10 +23,11 @@ class Window:
             <body>
                 <py-env>
                 - paths:
+                    - ./static/pyscript.py
                     - ./static/components.py
+                    - ./static/renderer.py
                 </py-env>
                 <div id="root"></div>
-                <py-script src="{url_for('static', filename='renderer.py')}"></py-script>
                 <py-script src="{url_for('static', filename='index.py')}"></py-script>
             </body>
             </html>

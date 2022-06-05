@@ -1,5 +1,7 @@
 from js import document
 from pyodide import create_proxy 
+from pyscript import Element, create, add_classes
+
 
 class Renderer:
   rootInstance = None
@@ -16,7 +18,14 @@ class Renderer:
       newInst = Renderer.getInstance(element)
       parentDom.element.appendChild(newInst["dom"].element)
       return newInst
-    elif instance["element"]["type"] == element["type"]:
+    elif element == None:
+      parentDom.element.removeChild(instance["dom"].element)
+      return None
+    elif instance["element"]["type"] != element["type"]:
+      newInst = Renderer.getInstance(element)
+      parentDom.element.replaceChild(newInst["dom"].element, instance["dom"].element)
+      return newInst
+    elif type(instance["element"]["type"]) is str:
       if element["type"] != "text":
         Renderer.updateProps(instance["dom"], instance["element"]["props"], element["props"])
         instance["childInstances"] = Renderer.reconcileChildren(instance, element)
@@ -30,9 +39,14 @@ class Renderer:
         else:
           return instance
     else:
-      newInst = Renderer.getInstance(element)
-      parentDom.element.replaceChild(newInst["dom"].element, instance["dom"].element)
-      return newInst
+      instance["publicInstance"].props = element["props"]
+      childElement = instance["publicInstance"].render().element
+      oldChildInstance = instance["childInstance"]
+      childInstance = Renderer.reconcile(parentDom, oldChildInstance, childElement)
+      instance["dom"] = childInstance["dom"]
+      instance["childInstance"] = childInstance
+      instance["element"] = element
+      return instance
 
   @staticmethod
   def reconcileChildren(instance, element):
@@ -81,33 +95,67 @@ class Renderer:
     type = element["type"]
     props = element["props"]
 
-    if type == "text":
-      elementNode = document.createTextNode(props["value"])
-      elementDom = Element(None, elementNode)
+    if isinstance(type, str):
+      if type == "text":
+        elementNode = document.createTextNode(props["value"])
+        elementDom = Element(None, elementNode)
+        return {
+          "dom": elementDom,
+          "element": element,
+          "childInstances": []
+        }
+
+      id = None
+      if "id" in props:
+        id = props["id"]
+
+      elementDom = create(type, id)
+
+      Renderer.updateProps(elementDom, [], props)
+
+      childElements: list = props["children"] if "children" in props else []
+
+      childInstances = []
+      for childElement in childElements:
+        childInstance = Renderer.getInstance(childElement)
+        childInstances.append(childInstance)
+        elementDom.element.appendChild(childInstance["dom"].element)
+
       return {
         "dom": elementDom,
         "element": element,
-        "childInstances": []
+        "childInstances": childInstances
       }
-
-    id = None
-    if "id" in props:
-      id = props["id"]
-
-    elementDom = create(type, id)
-
-    Renderer.updateProps(elementDom, [], props)
-
-    childElements: list = props["children"] if "children" in props else []
-
-    childInstances = []
-    for childElement in childElements:
+    else:
+      instance = {}
+      publicInstance = Renderer.createComponentInstance(element, instance)
+      childElement = publicInstance.render().element
       childInstance = Renderer.getInstance(childElement)
-      childInstances.append(childInstance)
-      elementDom.element.appendChild(childInstance["dom"].element)
+      elementDom = childInstance["dom"]
 
-    return {
-      "dom": elementDom,
-      "element": element,
-      "childInstances": childInstances
-    }
+      instance["dom"] = elementDom
+      instance["element"] = element
+      instance["childInstance"] = childInstance
+      instance["publicInstance"] = publicInstance
+      return instance
+      
+  
+  @staticmethod
+  def createComponentInstance(element, internalInstance):
+    type = element["type"]
+    props = element["props"]
+    if props:
+      propArr = []
+      for prop in props:
+        propArr.append(props[prop])
+      publicInstance = type(*propArr)
+    else:
+      publicInstance = type()
+    publicInstance.setInternalInstance(internalInstance)
+    return publicInstance
+
+  @staticmethod
+  def updateInstance(internalInstance):
+    parentDom = internalInstance["dom"].element.parentNode
+    element = internalInstance["element"]
+    Renderer.reconcile(parentDom, internalInstance, element)
