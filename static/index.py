@@ -1,43 +1,37 @@
 from components import *
 
-def heyyea(self):
-  print("HEEEEEEEEEYYYYYYYYYYYEEEAAAAAAAA")
+class MainPage:
+  counter = 0
 
-def MainPage():
-  return Div(
-    id="container",
-    children=[
-      Div(
-        children=[
-          Input(
-            type="text",
-            value="Inputzin"
-          ),
-          Link(
-            className="color-primary",
-            href="http://google.com",
-            children=[
-              Text("Linkzin")
-            ]
-          )
-        ]
-      ),
-      Div(
-        children=[
-          Span(
-            children=[
-              Text("Hello there")
-            ]
-          ),
-          Button(
-            onClick=heyyea,
-            children=[
-              Text("Hit me")
-            ]
-          )
-        ]
-      )
-    ]
-  )
+  def add(self, *args):
+    self.counter += 1
+    Renderer.render(self.render().element, Element("root"))
 
-Renderer.render(MainPage().element, Element("root"))
+  def render(self):
+    return Div(
+      id="container",
+      children=[
+        Span(
+          children=[
+            Text("ue")
+          ]
+        ),
+        Div(
+          children=[
+            Span(
+              children=[
+                Text(self.counter)
+              ]
+            ),
+            Button(
+              onClick=self.add,
+              children=[
+                Text("Hit me")
+              ]
+            )
+          ]
+        )
+      ]
+    )
+
+Renderer.render(MainPage().render().element, Element("root"))
