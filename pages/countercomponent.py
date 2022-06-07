@@ -5,8 +5,9 @@ from core.components.text import Text
 from core.hooks.state import State
 
 
-def addCounter(counter):
-    return counter + 1
+def addCounter(counter: int):
+    _value = counter + 1
+    return _value
 
 
 def rmvCounter(counter):
@@ -14,17 +15,31 @@ def rmvCounter(counter):
 
 
 def CounterComponent(starting=1, increase=True):
-    state = State(starting, addCounter if increase else rmvCounter)
+    [value, setValue] = State(starting)
+    [value2, setValue2] = State(500)
+
+    print(setValue.__hash__(), setValue2.__hash__(), 'carai')
 
     return Div(
         children=[
             Text(
-                value=state
+                value=value
             ),
             "<br>",
             Button(
-                onClick=state,
+                uuid=setValue.__hash__(),
+                onClick=setValue(addCounter(value)),
                 children=["hit me"]
+            ),
+            "<br>",
+            Text(
+                value=value2
+            ),
+            "<br>",
+            Button(
+                uuid=setValue2.__hash__(),
+                onClick=setValue2(rmvCounter(value2)),
+                children=["hit me2"]
             ),
         ]
     )

@@ -7,11 +7,14 @@ class Button(BaseComponent):
     def __repr__(self) -> str:
         return self.mount_children_component("button")
 
-    def __init__(self, className="", children={}, style={}, onClick="", script=''):
-        super().__init__()
+    def __init__(self, className="", children={}, style={}, onClick=lambda x : x, script='', uuid=""):
+        super().__init__(className, children, style, script)
         self.className = className
         self.children = children
         self.style = self.mountStyle(style)
         self.onClick = onClick
+        self.uuid = uuid
+        # print(State.uuid(self.onClick), 'cuzin')
+        # print('aqui', self.onClick.__name__,)
         self.script = script
         self.html = ''

@@ -36,7 +36,7 @@ class BaseComponent:
             string += ' onclick="' + str(self.onClick) + '"'
 
         if self.value != '':
-          self.html += "<span class='value_" + str(self.value.__hash__()) + "'>" + str(self.value.value) + "</span>"
+          self.html += "<span class='value_" + str(self.value.__hash__()) + "'>" + str(self.value) + "</span>"
 
         string += '>' + self.html + '</span>' + self.script
         return string
@@ -54,10 +54,10 @@ class BaseComponent:
             string += ' style="' + self.style + '"'
 
         if self.attribute_exists("onClick"):
-            if type(self.onClick) is State:
+            if self.onClick.__name__ is 'State':
                 string += ' onclick="changeData(' + \
-                    str(self.onClick.__hash__()) + ')"'
-            elif type(self.onClick) is RouterNavigate:
+                    str(self.uuid) + ')"'
+            elif self.onClick.__name__ is 'RouterNavigate':
                 string += ' onclick="' + self.onClick.value() + '"'
             else:
                 string += ' onclick="' + self.onClick + '"'
