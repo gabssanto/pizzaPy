@@ -11,7 +11,6 @@ class Store:
         return cls._instance
 
     def addState(self, state):
-        print('smap', self.smap)
         self.smap[str(state.uuid)] = state
         # return (state.value, state.modifier)
 

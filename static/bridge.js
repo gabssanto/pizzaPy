@@ -1,9 +1,10 @@
-function changeData(method, arguments) {
+function changeData(functionHash, arguments) {
   $.getJSON(
     "/handleDOM",
-    { updateFunction: method, arguments },
+    { updateFunction: functionHash, arguments },
     function (newValue) {
-      $(".updatable > .value_" + method).each(function (idx) {
+      console.log(newValue, 'aaaaa');
+      $(".updatable > .value_" + functionHash).each(function (idx) {
         $(this).text(newValue);
       });
     }

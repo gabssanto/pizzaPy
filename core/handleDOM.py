@@ -13,8 +13,9 @@ def index():
 
     if 'updateFunction' in params:
         state = Store().getState(params['updateFunction'])
-        state.value = state.modifier(state.value)
-        return (str(state.value))
+        return str(state.value)
+        # state.value = state.modifier(state.value)
+        # return (str(state.value))
     elif 'router' in params and 'path' in params:
         router = params['router']
         routeName = params['path']
