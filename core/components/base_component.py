@@ -1,3 +1,7 @@
+from core.hooks.state import State
+from core.router import RouterNavigate
+
+
 class BaseComponent:
     """
     Base class for all components.
@@ -14,6 +18,29 @@ class BaseComponent:
     def attribute_exists(self, type: str) -> bool:
         return hasattr(self, type) and getattr(self, type) != ''
 
+    def mount_updatable_component(self) -> str:
+        for child in self.children:
+            self.html = self.html + str(child)
+
+        string = '<span'
+
+        if self.className != '':
+            string += ' class="' + self.className + ' updatable"'
+        else:
+            string += ' class="updatable"'
+
+        if self.style != '':
+            string += ' style="' + self.style + '"'
+
+        if self.onClick != '':
+            string += ' onclick="' + str(self.onClick) + '"'
+
+        if self.value != '':
+          self.html += "<span class='value_" + str(self.value.__hash__()) + "'>" + str(self.value.value) + "</span>"
+
+        string += '>' + self.html + '</span>' + self.script
+        return string
+
     def mount_children_component(self, tag: str) -> str:
         for child in self.children:
             self.html = self.html + str(child)
@@ -27,7 +54,13 @@ class BaseComponent:
             string += ' style="' + self.style + '"'
 
         if self.attribute_exists("onClick"):
-            string += ' onclick="() => ' + str(self.onClick) + '"'
+            if type(self.onClick) is State:
+                string += ' onclick="changeData(' + \
+                    str(self.onClick.__hash__()) + ')"'
+            elif type(self.onClick) is RouterNavigate:
+                string += ' onclick="' + self.onClick.value() + '"'
+            else:
+                string += ' onclick="' + self.onClick + '"'
 
         if self.attribute_exists("onLoad"):
             string += ' onload="' + self.onLoad + '"'

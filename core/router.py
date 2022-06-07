@@ -1,9 +1,6 @@
 from re import A
 from typing import List
 
-from core.components.div import Div
-
-
 class SingleRoute:
     def __init__(self, name="", component=None, arguments=[]) -> None:
         self.name = name
@@ -43,11 +40,14 @@ class Router:
         }
 
     def render(self, router, routeName=None):
+        from core.components.div import Div
+        
         if routeName is None:
             routeName = self.appRoutes[router]["first"]
 
         route = self.appRoutes[router]["routes"][routeName]
         args = self.appRoutes[router]["arguments"][routeName]
+
         return Div(
             className="router_"+router,
             onLoad="setPageRouter('"+router+"')",
