@@ -14,7 +14,5 @@ class Button(BaseComponent):
         self.style = self.mountStyle(style)
         self.onClick = onClick
         self.uuid = uuid
-        # print(State.uuid(self.onClick), 'cuzin')
-        # print('aqui', self.onClick.__name__,)
         self.script = script
         self.html = ''

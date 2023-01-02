@@ -3,6 +3,8 @@ import pathlib
 
 class Store: 
     _instance = None
+    # counter = 0
+    # fmap = {}
     smap = {}
 
     def __new__(cls):
@@ -12,10 +14,11 @@ class Store:
 
     def addState(self, state):
         self.smap[str(state.uuid)] = state
-        # return (state.value, state.modifier)
+        return (state.value, state.modifier)
 
     def getState(self, hash):
         return self.smap[hash]
+
 
     # def addFunction(self, function):
     #     fhash = function.__hash__()
