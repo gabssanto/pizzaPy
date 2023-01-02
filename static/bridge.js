@@ -66,3 +66,23 @@ addEventListener("popstate", function (event) {
 $(function () {
   $("div[onload]").trigger("onload");
 });
+
+$(document).on('keyup', 'input', function(e) {
+  // Does some stuff and logs the event to the console
+  console.log('input changed', e.target.value)
+});
+
+// var limit = 10; //your input limit
+// $(document).on('ready',function(){
+//     var oldValue = $( "input[type='text']" ).val();
+//     $( "input[type='text']" ).on('keydown',function(e) {
+//         oldValue = $( this ).val();
+//     })
+//     $( "input[type='text']" ).on('input propertychange',function(e) {
+//         newValue = $(this).val();
+//         if(newValue.length > limit){
+//             $(this).val(oldValue);
+//             alert('String too long.');
+//         }
+//     });
+// });
